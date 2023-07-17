@@ -1,62 +1,102 @@
 {
-  "_args": [
-    [
-      "github:sowlutions/react-native-clear-cache",
-      "/Users/maiya/oa-rn"
-    ]
-  ],
-  "_from": "github:sowlutions/react-native-clear-cache",
-  "_id": "react-native-clear-cache@github:sowlutions/react-native-clear-cache#2a0fba4cc2425f4d7c9aaf794cdd4aa3b81fe50d",
-  "_inBundle": false,
-  "_integrity": "",
-  "_location": "/react-native-clear-cache",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "git",
-    "raw": "github:sowlutions/react-native-clear-cache",
-    "rawSpec": "github:sowlutions/react-native-clear-cache",
-    "saveSpec": "github:sowlutions/react-native-clear-cache",
-    "fetchSpec": null,
-    "gitCommittish": null
-  },
-  "_requiredBy": [
-    "/"
-  ],
-  "_resolved": "github:sowlutions/react-native-clear-cache#2a0fba4cc2425f4d7c9aaf794cdd4aa3b81fe50d",
-  "_spec": "github:sowlutions/react-native-clear-cache",
-  "_where": "/Users/maiya/oa-rn",
-  "author": {
-    "name": "Sowlutions Inc.",
-    "email": "tech@sowlutions.com"
-  },
-  "bugs": {
-    "url": "https://github.com/qq273335649/oa-react-native-clear-cache/issues"
-  },
+  "name": "react-native-clear-cache",
+  "version": "1.1.0",
   "description": "TODO",
-  "devDependencies": {
-    "react": "^16.8.3",
-    "react-native": "^0.59.10"
-  },
-  "homepage": "https://github.com/qq273335649/oa-react-native-clear-cache",
-  "keywords": [
-    "react-native"
+  "main": "src/index",
+  "module": "src/index",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "*.podspec",
+    "!lib/typescript/example",
+    "!ios/build",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*"
   ],
-  "license": "MIT",
-  "licenseFilename": "LICENSE",
-  "main": "index.js",
-  "name": "oa-react-native-clear-cache",
-  "peerDependencies": {
-    "react": "^16.8.1",
-    "react-native": ">=0.59.0-rc.0 <1.0.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/qq273335649/oa-react-native-clear-cache.git",
-    "baseUrl": "https://github.com/qq273335649/oa-react-native-clear-cache"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "example": "yarn --cwd example",
+    "bootstrap": "yarn example && yarn install && yarn example pods",
+    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build"
   },
-  "title": "React Native Clear Cache",
-  "version": "1.0.3"
+  "keywords": [
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "repository": "https://github.com/oneclick-llc/react-native-clear-cache",
+  "author": "deniszamataev <denis.zamataev@gmail.com> (https://github.com/dzamataev)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oneclick-llc/react-native-clear-cache/"
+  },
+  "homepage": "https://github.com/oneclick-llc/react-native-clear-cache#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^3.0.2",
+    "@types/react": "~17.0.21",
+    "@types/react-native": "0.70.0",
+    "del-cli": "^5.0.0",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "pod-install": "^0.1.0",
+    "prettier": "^2.0.5",
+    "react": "18.2.0",
+    "react-native": "0.71.7",
+    "typescript": "^4.5.2"
+  },
+  "resolutions": {
+    "@types/react": "17.0.21"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@react-native-community",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "quoteProps": "consistent",
+          "singleQuote": true,
+          "tabWidth": 2,
+          "trailingComma": "es5",
+          "useTabs": false
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  }
 }
