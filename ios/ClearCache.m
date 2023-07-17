@@ -1,5 +1,8 @@
 #import "ClearCache.h"
 
+#ifndef CACHE_CLEAR_IGNORE_PATHS
+#define CACHE_CLEAR_IGNORE_PATHS [NSArray arrayWithObjects: @"ru.yandex.mobile.YandexMobileMetrica",@"crashes",@"com.plausiblelabs.crashreporter",nil]
+#endif
 
 @implementation ClearCache
 
@@ -81,20 +84,42 @@ RCT_EXPORT_METHOD(clearAppCache:(RCTResponseSenderBlock)callback)
 
 - (void)clearFile:(RCTResponseSenderBlock)callback
 {
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    NSLog(@"success clearing NSURLCache");
+    
+    NSArray *ignorePaths = CACHE_CLEAR_IGNORE_PATHS;
     NSString * cachPath = [NSSearchPathForDirectoriesInDomains (NSCachesDirectory, NSUserDomainMask, YES ) firstObject];
     
     NSArray * files = [[NSFileManager defaultManager]subpathsAtPath:cachPath];
     
-    NSLog ( @"cachpath = %@" , cachPath);
+    NSLog ( @"cache path = %@" , cachPath);
+    NSLog ( @"cache files = %@" , files);
     
     for ( NSString * p in files) {
+        
         NSError * error = nil ;
         NSString * path = [cachPath stringByAppendingPathComponent :p];
-        if ([[ NSFileManager defaultManager ] fileExistsAtPath :path]) {
+        
+        BOOL ignore = false;
+        for (NSString *ignorePath in ignorePaths) {
+            if ([p hasPrefix: ignorePath]) {
+                ignore = true;
+                NSLog(@"skip removing file because it's ignored %@", p);
+            }
+        }
+        if (ignore) continue;
+        
+        BOOL isDir;
+        if (  [[ NSFileManager defaultManager ] fileExistsAtPath :path isDirectory: &isDir] && !isDir) {
             [[ NSFileManager defaultManager ] removeItemAtPath :path error :&error];
+            
+            if (error) {
+                NSLog(@"error removing file %@: %@", p, error.localizedDescription);
+            } else {
+                NSLog(@"success removing file %@", p);
+            }
         }
     }
-    
     callback(@[[NSNull null]]);
     
 }
